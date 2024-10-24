@@ -1,8 +1,9 @@
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom"
 import { fetchDetail } from "../api";
-import { Img } from "../Home";
+import { Img } from "./Home";
 import styled from "styled-components";
+import Loading from "../components/Loading";
 
 interface IDetail {
     films: string[]
@@ -11,9 +12,13 @@ interface IDetail {
     name: string;
     sourceUrl: string;
 }
+type RouteParams = {
+    id: string;
+}
 
 export default function DetailPage() {
-    const { id } = useParams();
+    const { id } = useParams() as RouteParams;
+    console.log(useParams());
     const { isLoading, data } = useQuery<IDetail>(["Detail", id], () => fetchDetail(id));
     console.log(data)
     return (
@@ -21,19 +26,22 @@ export default function DetailPage() {
             <Btn>
                 <Link to={"/"}>&larr;</Link>
             </Btn>
-            {isLoading ? <h1>Loading</h1> : (
-                <Wrapper>
-                    <Profile>
-                        <Img src={data?.imageUrl} alt={data?.name} />
-                        <p>{data?.name}</p>
-                    </Profile>
-                    <div>
-                        <ul>
-                            {data?.films.map((film) => <li>{film}</li>)}
-                        </ul>
-                    </div>
-                </Wrapper>
-            )}
+            {isLoading
+                ? <Loading />
+                : (
+                    <Wrapper>
+                        <Profile>
+                            <Img src={data?.imageUrl} alt={data?.name} />
+                            <p>{data?.name}</p>
+                            <a href={data?.sourceUrl}>More Info</a>
+                        </Profile>
+                        <div>
+                            <ul>
+                                {data?.films.map((film, index) => <li key={index}>{film}</li>)}
+                            </ul>
+                        </div>
+                    </Wrapper>
+                )}
         </Container>
     )
 }

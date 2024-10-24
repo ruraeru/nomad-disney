@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
-import { fetchCharacters } from "./api";
+import { fetchCharacters } from "../api";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 interface ICharType {
   id: number;
@@ -17,16 +18,18 @@ function Home() {
         <Title>Disney Characters</Title>
       </Header>
       <Wrapper>
-        {isLoading ? <strong>Loading</strong> : (
-          data?.slice(0, 50).map(char => (
-            <Link to={`/character/${char.id}`} key={char.id}>
-              <Character>
-                <Img src={char.imageUrl} alt={char.name} />
-                <p>{char.name}</p>
-              </Character>
-            </Link>
-          ))
-        )}
+        {isLoading
+          ? <Loading />
+          : (
+            data?.slice(0, 50).map(char => (
+              <Link to={`/character/${char.id}`} key={char.id}>
+                <Character>
+                  <Img src={char.imageUrl} alt={char.name} />
+                  <p>{char.name}</p>
+                </Character>
+              </Link>
+            ))
+          )}
       </Wrapper>
     </Container>
   );
