@@ -6,6 +6,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    children: [
+      {
+        path: ":sortChar",
+      }
+    ]
   },
   {
     path: "character/:id",
