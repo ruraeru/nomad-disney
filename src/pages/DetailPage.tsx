@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { fetchDetail } from "../api";
 import { CharacterImage } from "./Home";
 import styled from "styled-components";
@@ -78,7 +78,6 @@ const Container = styled.div`
 
     border: 1px solid white;
     border-radius: 1rem;
-    box-shadow: rgba(255, 255, 255, 0.4) 0px 2px 4px, rgba(255, 255, 255, 0.3) 0px 7px 13px -3px, rgba(255, 255, 255, 0.2) 0px -3px 0px inset;
 `;
 
 const Profile = styled.div`
@@ -111,7 +110,6 @@ const Profile = styled.div`
 const FilmList = styled.ul`
     display: flex;
     flex-wrap: wrap;
-    /* flex-direction: column; */
     justify-content: center;
     gap: 10px;
 
